@@ -1,0 +1,11 @@
+com\example\demo\DemoApplication.class
+com\example\service\MovieService.class
+com\example\dto\Movie.class
+com\example\utils\IdUtils$DigestUtils.class
+com\example\utils\IdUtils.class
+com\example\utils\WanDouDynamicProxyRequester.class
+com\example\dto\DemoDoubanCrawler.class
+com\example\utils\IdUtils$MathUtils.class
+com\example\utils\IdUtils$NetworkUtils.class
+com\example\utils\WanDouDynamicProxyRequester$1.class
+com\example\dao\MovieMapper.class
