@@ -120,7 +120,11 @@
             <version>2.2.3</version>
             <classifier>jdk15</classifier><!-- jdk版本 -->
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>2.1.4</version>
+        </dependency>
     </dependencies>
 
     <build>
