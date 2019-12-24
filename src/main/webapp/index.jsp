@@ -16,6 +16,7 @@
     <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
     <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
     <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
 
     <script src="js/index.js"></script>
 </head>
@@ -168,7 +169,39 @@
         <div>
             <input type="button" @click="submit()" class="btn btn-info btn-lg col-12" value="确认">
         </div>
+        <div style="margin: 5px">
+            <input type="button" class="btn btn-primary btn-lg col-12"
+                   data-toggle="modal" data-target="#exportModal" value="导出Excel">
+        </div>
 
+        <!-- 模态框 -->
+        <div class="modal fade" id="exportModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- 模态框头部 -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">导出Excel</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- 模态框主体 -->
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>提取码:</label>
+                            <input type="text" class="form-control" v-model="dataTable.exportKey">
+                        </div>
+                    </div>
+
+                    <!-- 模态框底部 -->
+                    <div class="modal-footer">
+                        <button type="button" @click="exportExcel()" class="btn btn-primary" data-dismiss="modal">确认</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </form>
 </body>

@@ -3,14 +3,15 @@ package com.example.controller;
 import com.example.dto.LoginDto;
 import com.example.dto.PostRequestDto;
 import com.example.dto.RequestDto;
+import com.example.service.ExcelService;
 import com.example.service.GetService;
 import com.example.service.MovieService;
 import com.example.service.PostService;
+import com.example.utils.Response.ResBody;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 public class GetController {
@@ -20,6 +21,8 @@ public class GetController {
     GetService getService;
     @Autowired
     PostService postService;
+    @Autowired
+    ExcelService excelService;
 
     @RequestMapping(value = "/getMovie")
     public void myapitest() throws Exception {
@@ -37,7 +40,15 @@ public class GetController {
     }
 
     @RequestMapping(value = "/postData",method = RequestMethod.POST)
-    public void post(@RequestBody PostRequestDto postRequestDto) throws Exception {
-        postService.post(postRequestDto);
+    public ResBody post(@RequestBody PostRequestDto postRequestDto) {
+       String exportKey = postService.post(postRequestDto);
+        return ResBody.buildSuccessResBody(exportKey);
+    }
+
+    @RequestMapping(value = "/exportExcel",method = RequestMethod.GET)
+    public ResBody exportExcel(@RequestParam("key") String key) throws Exception {
+        Optional.ofNullable(key).orElseThrow(()->new Exception("key不能为空"));
+        excelService.exportExcel(key);
+        return ResBody.buildSuccessResBody();
     }
 }

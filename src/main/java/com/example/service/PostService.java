@@ -6,6 +6,7 @@ import com.example.entity.DataTable;
 import com.example.mapper.DataMapper;
 import com.example.utils.HttpClientDownloader;
 import com.example.utils.JsonPathSelector;
+import com.example.utils.RandomUtils;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,13 @@ public class PostService implements PageProcessor {
 
     private Site site = Site.me().setSleepTime(100);
     private PostRequestDto postRequestDto;
+    private String exportKey = new RandomUtils(RandomUtils.AllLetter).generate(64);
 
     @Autowired
     private DataMapper dataMapper;
 
 
-    public void post(PostRequestDto postRequestDto) {
+    public String post(PostRequestDto postRequestDto) {
         this.postRequestDto = postRequestDto;
         Request request = new Request(postRequestDto.getPage());
         request.setMethod(HttpConstant.Method.POST);
@@ -48,6 +50,7 @@ public class PostService implements PageProcessor {
             request.setRequestBody(HttpRequestBody.json(jsonObject.toString(), "utf-8"));
             Spider.create(this).setDownloader(new HttpClientDownloader()).addRequest(request).run();
         }
+        return exportKey;
     }
 
 
@@ -77,6 +80,7 @@ public class PostService implements PageProcessor {
             if (StringUtils.isNotEmpty(postRequestDto.getColumn7())) {
                 dataTable.setColumn7(e.getString(postRequestDto.getColumn7()));
             }
+            dataTable.setExportKey(exportKey);
             dataMapper.insert(dataTable);
         });
     }
