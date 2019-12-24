@@ -39,12 +39,23 @@ public class PostService implements PageProcessor {
         JSONObject jsonObject = JSONObject.fromObject(postRequestDto.getContent());
         //如果有增量参数循环，没有直接执行
         if (StringUtils.isNotEmpty(postRequestDto.getAscParam())) {
-            for (int i = jsonObject.getJSONObject("pageInfo").getInt(postRequestDto.getAscParam()); i < Integer.valueOf(postRequestDto.getMaxAscParam()); i++) {
-                JSONObject temp = jsonObject.getJSONObject("pageInfo");
-                temp.put(postRequestDto.getAscParam(), i);
-                jsonObject.put("pageInfo",temp);
-                request.setRequestBody(HttpRequestBody.json(jsonObject.toString(), "utf-8"));
-                Spider.create(this).setDownloader(new HttpClientDownloader()).addRequest(request).run();
+            String paramStrs[] = postRequestDto.getAscParam().split("\\.");
+            if (paramStrs.length == 2) {
+                for (int i = jsonObject.getJSONObject(paramStrs[0]).getInt(paramStrs[1]); i < Integer.valueOf(postRequestDto.getMaxAscParam()); i++) {
+                    JSONObject temp = jsonObject.getJSONObject(paramStrs[0]);
+                    temp.put(paramStrs[1], i);
+                    jsonObject.put(paramStrs[0], temp);
+                    request.setRequestBody(HttpRequestBody.json(jsonObject.toString(), "utf-8"));
+                    Spider.create(this).setDownloader(new HttpClientDownloader()).addRequest(request).run();
+                }
+            } else if (1 == paramStrs.length){
+                for (int i = jsonObject.getInt(paramStrs[0]); i < Integer.valueOf(postRequestDto.getMaxAscParam()); i++) {
+                    jsonObject.put(paramStrs[0], i);
+                    request.setRequestBody(HttpRequestBody.json(jsonObject.toString(), "utf-8"));
+                    Spider.create(this).setDownloader(new HttpClientDownloader()).addRequest(request).run();
+                }
+            }else {
+                return "暂不支持多层";
             }
         } else {
             request.setRequestBody(HttpRequestBody.json(jsonObject.toString(), "utf-8"));
