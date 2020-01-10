@@ -173,6 +173,14 @@
             <input type="button" class="btn btn-primary btn-lg col-12"
                    data-toggle="modal" data-target="#exportModal" value="导出Excel">
         </div>
+        <div style="margin: 5px">
+            <input type="button" class="btn btn-info btn-lg col-12"
+                   @click="updateLotto()" value="更新号码">
+        </div>
+        <div style="margin: 5px">
+            <input type="button" class="btn btn-primary btn-lg col-12"
+                   @click="buildLotteryNo()" value="生成号码">
+        </div>
 
         <!-- 模态框 -->
         <div class="modal fade" id="exportModal">

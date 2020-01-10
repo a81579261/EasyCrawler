@@ -37,6 +37,24 @@ window.onload = function () {
                     .catch(function (error) { // 请求失败处理
                         console.log(error);
                     });
+            },
+            updateLotto: function () {
+                axios.get('/updateLotto')
+                    .then(function (response) {
+                        alert("已更新!");
+                        console.log(response);
+                    }).catch(function (error) {
+                        console.log(error);
+                })
+            },
+            buildLotteryNo: function () {
+                axios.get('/buildLotteryNo')
+                    .then(function (response) {
+                        console.log(response);
+                        // alert("低频号码:" + response.data.data[0] + "/n" + "高频号码:" + response.data.data[1]);
+                    }).catch(function (error) {
+                        console.log(error);
+                })
             }
         }
     });

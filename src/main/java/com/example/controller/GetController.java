@@ -3,14 +3,13 @@ package com.example.controller;
 import com.example.dto.LoginDto;
 import com.example.dto.PostRequestDto;
 import com.example.dto.RequestDto;
-import com.example.service.ExcelService;
-import com.example.service.GetService;
-import com.example.service.MovieService;
-import com.example.service.PostService;
+import com.example.entity.Lottery;
+import com.example.service.*;
 import com.example.utils.Response.ResBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,6 +22,8 @@ public class GetController {
     PostService postService;
     @Autowired
     ExcelService excelService;
+    @Autowired
+    BuildLottoService buildLottoService;
 
     @RequestMapping(value = "/getMovie")
     public void myapitest() throws Exception {
@@ -50,5 +51,17 @@ public class GetController {
         Optional.ofNullable(key).orElseThrow(()->new Exception("key不能为空"));
         excelService.exportExcel(key);
         return ResBody.buildSuccessResBody();
+    }
+
+    @RequestMapping(value = "/updateLotto",method = RequestMethod.GET)
+    public ResBody updateLotto() throws Exception {
+        buildLottoService.updateLotto(1);
+        return ResBody.buildSuccessResBody();
+    }
+
+    @RequestMapping(value = "/buildLotteryNo",method = RequestMethod.GET)
+    public ResBody buildLotteryNo(){
+       List<Lottery> list = buildLottoService.buildLotteryNo();
+        return ResBody.buildSuccessResBody(list);
     }
 }
