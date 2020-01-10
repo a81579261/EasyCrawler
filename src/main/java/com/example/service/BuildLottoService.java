@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -58,7 +58,8 @@ public class BuildLottoService extends RamCrawler {
             lottery.setBlue1(Integer.valueOf(stringList.get(6)));
             lottery.setBlue2(Integer.valueOf(stringList.get(7)));
             try {
-                lottery.setOpenDate(DateFormat.getDateInstance().parse(stringList.get(stringList.size() - 1)));
+                SimpleDateFormat simpleDateFormat =new SimpleDateFormat("yyyy-MM-dd");
+                lottery.setOpenDate (simpleDateFormat.parse(stringList.get(stringList.size() - 1)));
             } catch (ParseException e1) {
                 e1.printStackTrace();
             }
