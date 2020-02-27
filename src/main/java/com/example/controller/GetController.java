@@ -1,67 +1,42 @@
 package com.example.controller;
 
-import com.example.dto.LoginDto;
-import com.example.dto.PostRequestDto;
 import com.example.dto.RequestDto;
-import com.example.entity.Lottery;
-import com.example.service.*;
-import com.example.utils.Response.ResBody;
+import com.example.service.GetService;
+import com.example.service.MovieService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.Optional;
-
+/**
+ * @author Agus
+ */
+@Slf4j
 @RestController
+@RequestMapping("/service/get")
+@Api(value = "GET请求爬取页面")
 public class GetController {
     @Autowired
     MovieService movieService;
     @Autowired
     GetService getService;
-    @Autowired
-    PostService postService;
-    @Autowired
-    ExcelService excelService;
-    @Autowired
-    BuildLottoService buildLottoService;
 
-    @RequestMapping(value = "/getMovie")
+    @ApiOperation(value = "爬取豆瓣电影")
+    @RequestMapping(value = "getMovie",method = RequestMethod.GET)
     public void myapitest() throws Exception {
         movieService.getMovie();
     }
 
-    @RequestMapping(value = "/getData",method = RequestMethod.POST)
-    public void get(@RequestBody RequestDto requestDto) throws Exception {
+    @ApiOperation(value = "GET请求爬取")
+    @RequestMapping(value = "getData",method = RequestMethod.POST)
+    @ApiParam(name = "GET请求对象", value = "GET请求对象",type = "Object",required = true)
+    public void getData(@RequestBody RequestDto requestDto) throws Exception {
         getService.get(requestDto);
     }
 
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public void login(@RequestBody LoginDto loginDto){
-
-    }
-
-    @RequestMapping(value = "/postData",method = RequestMethod.POST)
-    public ResBody post(@RequestBody PostRequestDto postRequestDto) {
-       String exportKey = postService.post(postRequestDto);
-        return ResBody.buildSuccessResBody(exportKey);
-    }
-
-    @RequestMapping(value = "/exportExcel",method = RequestMethod.GET)
-    public ResBody exportExcel(@RequestParam("key") String key) throws Exception {
-        Optional.ofNullable(key).orElseThrow(()->new Exception("key不能为空"));
-        excelService.exportExcel(key);
-        return ResBody.buildSuccessResBody();
-    }
-
-    @RequestMapping(value = "/updateLotto",method = RequestMethod.GET)
-    public ResBody updateLotto() throws Exception {
-        buildLottoService.updateLotto(1);
-        return ResBody.buildSuccessResBody();
-    }
-
-    @RequestMapping(value = "/buildLotteryNo",method = RequestMethod.GET)
-    public ResBody buildLotteryNo(){
-       List<Lottery> list = buildLottoService.buildLotteryNo();
-        return ResBody.buildSuccessResBody(list);
-    }
 }
