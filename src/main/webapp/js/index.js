@@ -13,7 +13,7 @@ window.onload = function () {
             submit: function () {
                 //发送 post 请求
                 if (this.method == 'html') {
-                    this.$http.post('/getData', this.dataTable, {emulateJSON: false}).then(function (res) {
+                    this.$http.post('/service/get/getData', this.dataTable, {emulateJSON: false}).then(function (res) {
                         alert("爬虫成功!");
                     }, function (res) {
                         console.log(res.status);
