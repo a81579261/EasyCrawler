@@ -37,7 +37,7 @@ public class GetService extends RamCrawler {
 
     @MatchType(types = "depth1")
     public void visitDepth1(Page page, CrawlDatums next) throws Exception {
-        if (StringUtils.isEmpty(requestDto.getLinks1())){
+        if (StringUtils.isBlank(requestDto.getLinks1())){
             throw new Exception("depth1 can not be null!");
         }else {
             if (2 < depth){
@@ -52,7 +52,7 @@ public class GetService extends RamCrawler {
     }
     @MatchType(types = "depth2")
     public void visitDepth2(Page page, CrawlDatums next) throws Exception {
-        if (StringUtils.isEmpty(requestDto.getLinks2())){
+        if (StringUtils.isBlank(requestDto.getLinks2())){
             throw new Exception("depth2 can not be null!");
         }else {
             if (3 < depth){
@@ -67,7 +67,7 @@ public class GetService extends RamCrawler {
     }
     @MatchType(types = "depth3")
     public void visitDepth3(Page page, CrawlDatums next) throws Exception {
-        if (StringUtils.isEmpty(requestDto.getLinks3())){
+        if (StringUtils.isBlank(requestDto.getLinks3())){
             throw new Exception("depth3 can not be null!");
         }else {
             if (4 < depth){
@@ -86,34 +86,34 @@ public class GetService extends RamCrawler {
     public void visitContent(Page page, CrawlDatums next) {
         DataTable dataTable = new DataTable();
         dataTable.setUrl(page.url());
-        if (StringUtils.isNotEmpty(requestDto.getColumn1())){
+        if (StringUtils.isNotBlank(requestDto.getColumn1())){
             dataTable.setColumn1(page.selectText(requestDto.getColumn1()).length()>1000 ? page.selectText(requestDto.getColumn1()).substring(0,999) : page.selectText(requestDto.getColumn1()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn2())){
+        if (StringUtils.isNotBlank(requestDto.getColumn2())){
             dataTable.setColumn2(page.selectText(requestDto.getColumn2()).length()>1000 ? page.selectText(requestDto.getColumn2()).substring(0,999) : page.selectText(requestDto.getColumn2()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn3())){
+        if (StringUtils.isNotBlank(requestDto.getColumn3())){
             dataTable.setColumn3(page.selectText(requestDto.getColumn3()).length() > 1000 ? page.selectText(requestDto.getColumn3()).substring(0,999):page.selectText(requestDto.getColumn3()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn4())){
+        if (StringUtils.isNotBlank(requestDto.getColumn4())){
             dataTable.setColumn4(page.selectText(requestDto.getColumn4()).length() > 1000? page.selectText(requestDto.getColumn4()).substring(0,999):page.selectText(requestDto.getColumn4()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn5())){
+        if (StringUtils.isNotBlank(requestDto.getColumn5())){
             dataTable.setColumn5(page.selectText(requestDto.getColumn5()).length() > 1000 ? page.selectText(requestDto.getColumn5()).substring(0,999):page.selectText(requestDto.getColumn5()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn6())){
+        if (StringUtils.isNotBlank(requestDto.getColumn6())){
             dataTable.setColumn6(page.selectText(requestDto.getColumn6()).length() > 1000? page.selectText(requestDto.getColumn6()).substring(0,999):page.selectText(requestDto.getColumn6()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn7())){
+        if (StringUtils.isNotBlank(requestDto.getColumn7())){
             dataTable.setColumn7(page.selectText(requestDto.getColumn7()).length() > 1000 ? page.selectText(requestDto.getColumn7()).substring(0,999):page.selectText(requestDto.getColumn7()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn8())){
+        if (StringUtils.isNotBlank(requestDto.getColumn8())){
             dataTable.setColumn8(page.selectText(requestDto.getColumn8()).length() > 1000 ? page.selectText(requestDto.getColumn8()).substring(0,999): page.selectText(requestDto.getColumn8()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn9())){
+        if (StringUtils.isNotBlank(requestDto.getColumn9())){
             dataTable.setColumn9(page.selectText(requestDto.getColumn9()).length() > 1000 ? page.selectText(requestDto.getColumn9()).substring(0,999):page.selectText(requestDto.getColumn9()));
         }
-        if (StringUtils.isNotEmpty(requestDto.getColumn10())){
+        if (StringUtils.isNotBlank(requestDto.getColumn10())){
             dataTable.setColumn10(page.selectText(requestDto.getColumn10()).length() > 1000 ? page.selectText(requestDto.getColumn10()).substring(0,999):page.selectText(requestDto.getColumn10()));
         }
         dataMapper.insert(dataTable);
