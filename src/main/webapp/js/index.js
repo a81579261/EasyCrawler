@@ -20,7 +20,7 @@ window.onload = function () {
                     });
                 }
                 if (this.method == 'post') {
-                    this.$http.post('/postData', this.dataTable, {emulateJSON: false}).then(function (res) {
+                    this.$http.post('/service/post/postData', this.dataTable, {emulateJSON: false}).then(function (res) {
                         alert("爬虫成功!提取码为:" + res.data.data);
                         console.log(res);
                     }, function (res) {
@@ -29,7 +29,7 @@ window.onload = function () {
                 }
             },
             exportExcel: function () {
-                axios.get('/exportExcel', {params: {key: this.dataTable.exportKey}})
+                axios.get('/service/excel/exportExcel', {params: {key: this.dataTable.exportKey}})
                     .then(function (response) {
                         alert("导出成功!");
                         console.log(response);
@@ -39,7 +39,7 @@ window.onload = function () {
                     });
             },
             updateLotto: function () {
-                axios.get('/updateLotto')
+                axios.get('/service/lotto/updateLotto')
                     .then(function (response) {
                         alert("已更新!");
                         console.log(response);
@@ -48,7 +48,7 @@ window.onload = function () {
                 })
             },
             buildLotteryNo: function () {
-                axios.get('/buildLotteryNo')
+                axios.get('/service/lotto/buildLotteryNo')
                     .then(function (response) {
                         console.log(response);
                         // alert("低频号码:" + response.data.data[0] + "/n" + "高频号码:" + response.data.data[1]);
