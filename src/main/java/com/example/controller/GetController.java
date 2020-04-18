@@ -48,7 +48,7 @@ public class GetController {
     @ApiOperation(value = "爬取https://caloo.jp/achievements/首页分类和名字")
     @RequestMapping(value = "getSickClassAndSickName",method = RequestMethod.POST)
     @ApiParam(name = "GET请求对象", value = "GET请求对象",type = "Object",required = true)
-    public void getOnePage2StringList(@RequestBody RequestDto requestDto) throws Exception {
+    public void getSickClassAndSickName(@RequestBody RequestDto requestDto) throws Exception {
         jpSickService.getSickClassAndSickName(requestDto);
     }
 
