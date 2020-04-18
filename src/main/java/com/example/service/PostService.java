@@ -38,7 +38,7 @@ public class PostService implements PageProcessor {
         //获取入参json
         JSONObject jsonObject = JSONObject.fromObject(postRequestDto.getContent());
         //如果有增量参数循环，没有直接执行
-        if (StringUtils.isNotEmpty(postRequestDto.getAscParam())) {
+        if (StringUtils.isNotBlank(postRequestDto.getAscParam())) {
             String paramStrs[] = postRequestDto.getAscParam().split("\\.");
             if (paramStrs.length == 2) {
                 for (int i = jsonObject.getJSONObject(paramStrs[0]).getInt(paramStrs[1]); i < Integer.valueOf(postRequestDto.getMaxAscParam()); i++) {
@@ -70,25 +70,25 @@ public class PostService implements PageProcessor {
         List<JSONObject> list = new JsonPathSelector(postRequestDto.getJsonPathStr()).selectJsonList(page.getRawText());
         list.forEach(e -> {
             DataTable dataTable = new DataTable();
-            if (StringUtils.isNotEmpty(postRequestDto.getColumn1())) {
+            if (StringUtils.isNotBlank(postRequestDto.getColumn1())) {
                 dataTable.setColumn1(e.getString(postRequestDto.getColumn1()));
             }
-            if (StringUtils.isNotEmpty(postRequestDto.getColumn2())) {
+            if (StringUtils.isNotBlank(postRequestDto.getColumn2())) {
                 dataTable.setColumn2(e.getString(postRequestDto.getColumn2()));
             }
-            if (StringUtils.isNotEmpty(postRequestDto.getColumn3())) {
+            if (StringUtils.isNotBlank(postRequestDto.getColumn3())) {
                 dataTable.setColumn3(e.getString(postRequestDto.getColumn3()));
             }
-            if (StringUtils.isNotEmpty(postRequestDto.getColumn4())) {
+            if (StringUtils.isNotBlank(postRequestDto.getColumn4())) {
                 dataTable.setColumn4(e.getString(postRequestDto.getColumn4()));
             }
-            if (StringUtils.isNotEmpty(postRequestDto.getColumn5())) {
+            if (StringUtils.isNotBlank(postRequestDto.getColumn5())) {
                 dataTable.setColumn5(e.getString(postRequestDto.getColumn5()));
             }
-            if (StringUtils.isNotEmpty(postRequestDto.getColumn6())) {
+            if (StringUtils.isNotBlank(postRequestDto.getColumn6())) {
                 dataTable.setColumn6(e.getString(postRequestDto.getColumn6()));
             }
-            if (StringUtils.isNotEmpty(postRequestDto.getColumn7())) {
+            if (StringUtils.isNotBlank(postRequestDto.getColumn7())) {
                 dataTable.setColumn7(e.getString(postRequestDto.getColumn7()));
             }
             dataTable.setExportKey(exportKey);
