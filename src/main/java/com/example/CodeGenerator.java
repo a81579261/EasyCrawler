@@ -55,9 +55,9 @@ public class CodeGenerator {
                 //dsc.setUsername("root");
                 //dsc.setPassword("8Z4Fby5CV!KQXe5a");
 //                dsc.setUrl("jdbc:mysql://47.107.83.120:3306/utopa_dev_crm?serverTimezone=UTC&useSSL=false&useUnicode=true&autoReconnect=true&characterEncoding=utf8&allowMultiQueries=true");
-                dsc.setUrl("jdbc:mysql://47.96.139.215:3306/utopa_dev_eshop?characterEncoding=UTF8&allowMultiQueries=true");
-                dsc.setUsername("utopa_dev");
-                dsc.setPassword("5&lQ!5DH");
+                dsc.setUrl("jdbc:mysql://localhost:3306/douban?characterEncoding=UTF8&allowMultiQueries=true&serverTimezone=UTC");
+                dsc.setUsername("root");
+                dsc.setPassword("root");
                 mpg.setDataSource(dsc);
                 //策略配置
                 StrategyConfig strategy = new StrategyConfig();
@@ -68,7 +68,7 @@ public class CodeGenerator {
                 strategy.setColumnNaming(NamingStrategy.underline_to_camel);
                 //需要生成的表
                 strategy.setInclude(new String[]{
-                "es_special_theme"
+                "zao_ya"
                 });
 
                 strategy.setSuperServiceClass(null);
@@ -77,7 +77,7 @@ public class CodeGenerator {
                 strategy.setSuperMapperClass(null);
                 strategy.setControllerMappingHyphenStyle(true);
 
-                strategy.setTablePrefix("es_");
+                strategy.setTablePrefix("");
 
                 strategy.setRestControllerStyle(false);
 
